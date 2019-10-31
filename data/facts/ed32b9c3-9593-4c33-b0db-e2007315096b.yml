@@ -23,5 +23,3 @@ rules:
   - action: ALLOW
     fact: file.sensitive.extension
     match: yml
-
-  
