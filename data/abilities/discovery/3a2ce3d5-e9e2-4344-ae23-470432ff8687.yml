@@ -12,6 +12,10 @@
       sh:
         command: |
           nmap -sV -p #{remote.host.port} #{remote.host.ip}
+    linux:
+      sh:
+        command: |
+          nmap -sV -p #{remote.host.port} #{remote.host.ip}
   requirements:
     plugins.stockpile.app.requirements.basic:
      - source: remote.host.ip
